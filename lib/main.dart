@@ -17,7 +17,17 @@ void main() async {
           .toList()
       : <Task>[];
   for (var i = 0; i < listOfTasks.length; i++) {
-    if (DateTime.now().difference(listOfTasks[i].startTime).inDays >= 1) {
+    final now = DateTime.now();
+    final startOfToday = now.subtract(
+      Duration(
+        hours: now.hour,
+        minutes: now.minute,
+        seconds: now.second,
+        milliseconds: now.millisecond,
+        microseconds: now.microsecond,
+      ),
+    );
+    if (startOfToday.difference(listOfTasks[i].startTime).inDays >= 1) {
       listOfTasks[i] = listOfTasks[i].copyWith(
         minuteDone: 0,
         completed: false,
